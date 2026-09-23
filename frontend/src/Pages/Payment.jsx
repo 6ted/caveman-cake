@@ -234,7 +234,7 @@ export default function Payment() {
               </span>
 
               <strong>
-                MWK 100.00
+                MWK 1,500.00
               </strong>
 
               <span>
@@ -382,29 +382,41 @@ export default function Payment() {
         </section>
 
 
-        {/* LICENSE REMINDER */}
-        <section className="payment-license">
+      
+{/* PAYMENT SUPPORT */}
+<section className="payment-license">
 
-          <strong>
-            Before you continue
-          </strong>
+  <strong>
+    Payment completed but can't download?
+  </strong>
 
-          <p>
-            By completing this purchase, you confirm
-            that you have read and accepted the
-            Caveman Cake Slice 1 license agreement
-            shown on the previous page.
-          </p>
+  <p>
+    If your payment was successful but you are unable to download
+    the Caveman Cake Slice 1 ZIP file, contact the Cave Tunes team
+    and we'll help you get your download.
+  </p>
 
-          <button
-            type="button"
-            onClick={handleBack}
-            disabled={loading}
-          >
-            Review product information
-          </button>
+  <button
+    type="button"
+    onClick={() => {
+      const message = encodeURIComponent(
+        "Hello Cave Tunes team, I have completed my payment for Caveman Cake Slice 1, but I am unable to download the ZIP file. Please help me with my download."
+      );
 
-        </section>
+      window.open(
+        `https://wa.me/265881057210?text=${message}`,
+        "_blank",
+        "noopener,noreferrer"
+      );
+    }}
+    disabled={loading}
+  >
+    Contact Cave Tunes on WhatsApp
+  </button>
+
+</section>
+
+
 
       </section>
 
