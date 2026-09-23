@@ -1,0 +1,186 @@
+.download-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      rgba(255, 255, 255, 0.5),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #f8d7e7,
+      #efb9d2
+    );
+
+  color: #25151d;
+}
+
+
+.download-card {
+  width: min(600px, 100%);
+
+  padding: 55px 45px;
+
+  text-align: center;
+
+  border-radius: 25px;
+
+  background:
+    rgba(255, 255, 255, 0.55);
+
+  border:
+    1px solid
+    rgba(100, 40, 65, 0.12);
+
+  box-shadow:
+    0 30px 80px
+    rgba(80, 20, 50, 0.15);
+}
+
+
+.download-label {
+  margin: 0 0 20px;
+
+  color: #9a3d65;
+
+  font-size: 11px;
+  font-weight: 900;
+
+  letter-spacing: 3px;
+}
+
+
+.download-card h1 {
+  margin: 0 0 20px;
+
+  font-size: clamp(42px, 7vw, 65px);
+
+  line-height: 0.95;
+
+  letter-spacing: -3px;
+}
+
+
+.download-card > p {
+  color: #684454;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+
+.success-icon {
+  width: 70px;
+  height: 70px;
+
+  margin: 10px auto 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #25151d;
+
+  color: #f1b6d0;
+
+  font-size: 30px;
+  font-weight: 900;
+}
+
+
+.download-button {
+  width: 100%;
+
+  margin-top: 25px;
+
+  padding: 18px 22px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #25151d;
+
+  color: white;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+
+.download-button:hover {
+  background: #9a3d65;
+
+  transform: translateY(-2px);
+}
+
+
+.download-button span {
+  font-size: 20px;
+}
+
+
+.download-secondary {
+  margin-top: 18px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #9a3d65;
+
+  font-size: 11px;
+  font-weight: 900;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+}
+
+
+.download-note {
+  margin-top: 30px !important;
+
+  color: #795363 !important;
+
+  font-size: 11px !important;
+}
+
+
+@media (max-width: 600px) {
+
+  .download-page {
+    padding: 18px;
+  }
+
+  .download-card {
+    padding: 40px 25px;
+  }
+
+  .download-card h1 {
+    letter-spacing: -2px;
+  }
+
+}

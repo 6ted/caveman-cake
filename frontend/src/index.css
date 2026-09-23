@@ -1,0 +1,20 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7d5e5;
+  color: #25151d;
+}
+
+button {
+  font-family: inherit;
+}
+
