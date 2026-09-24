@@ -7,6 +7,7 @@ const fs = require("fs");
 const path = require("path");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const nodemailer = require("nodemailer");
 
 dotenv.config();
 
@@ -37,7 +38,7 @@ const PAYCHANGU_WEBHOOK_SECRET =
 
 const PRODUCT_PRICE_MWK =
   Number(
-    process.env.PRODUCT_PRICE_MWK || 100
+    process.env.PRODUCT_PRICE_MWK || 1500
   );
 
 const PRODUCT_PRICE_USD =
@@ -107,13 +108,34 @@ app.use(
 // CORS
 // ==================================================
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://cave.cavetunes.workers.dev"
+];
+
 app.use(
   cors({
-    origin: FRONTEND_URL,
+    origin: function (origin, callback) {
+      // Allow requests without an Origin header
+      // such as server-to-server requests.
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(
+        new Error("Not allowed by CORS")
+      );
+    },
+
     methods: [
       "GET",
       "POST"
     ],
+
     allowedHeaders: [
       "Content-Type"
     ]
@@ -477,6 +499,90 @@ app.use(
   })
 );
 
+
+// ==================================================
+// CAVEMAN CAKE BUTTON CLICK NOTIFICATION
+// ==================================================
+
+app.post(
+  "/api/pack-interest",
+  async (req, res) => {
+    try {
+
+      const product =
+        req.body?.product ||
+        "Caveman Cake Slice 1";
+
+      if (
+        !process.env.NOTIFICATION_EMAIL ||
+        !process.env.NOTIFICATION_EMAIL_PASSWORD
+      ) {
+        console.error(
+          "Notification email credentials are not configured."
+        );
+
+        return res.status(500).json({
+          success: false,
+          message:
+            "Notification email is not configured."
+        });
+      }
+
+      const transporter =
+        nodemailer.createTransport({
+          service: "gmail",
+
+          auth: {
+            user:
+              process.env.NOTIFICATION_EMAIL,
+
+            pass:
+              process.env.NOTIFICATION_EMAIL_PASSWORD
+          }
+        });
+
+      await transporter.sendMail({
+        from:
+          `"Caveman Cake" <${process.env.NOTIFICATION_EMAIL}>`,
+
+        to:
+          process.env.NOTIFICATION_EMAIL,
+
+        subject:
+          "🍰 Someone clicked GET THE FULL PACK",
+
+        text:
+          `Someone clicked a Caveman Cake download button.
+
+Product: ${product}
+
+This is only a button-click notification.
+No download or payment was recorded.`
+      });
+
+      console.log(
+        "📧 Caveman Cake button-click notification sent."
+      );
+
+      return res.json({
+        success: true
+      });
+
+    } catch (error) {
+
+      console.error(
+        "Pack interest notification error:",
+        error
+      );
+
+      return res.status(500).json({
+        success: false,
+        message:
+          "Could not send notification."
+      });
+    }
+  }
+);
 
 // ==================================================
 // RATE LIMITERS
