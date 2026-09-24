@@ -7,7 +7,7 @@ const fs = require("fs");
 const path = require("path");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const nodemailer = require("nodemailer");
+
 
 dotenv.config();
 
@@ -504,72 +504,30 @@ app.use(
 // CAVEMAN CAKE BUTTON CLICK NOTIFICATION
 // ==================================================
 
+// ==================================================
+// CAVEMAN CAKE BUTTON CLICK NOTIFICATION
+// ==================================================
+
 app.post(
   "/api/pack-interest",
   async (req, res) => {
     try {
-
       const product =
         req.body?.product ||
         "Caveman Cake Slice 1";
 
-      if (
-        !process.env.NOTIFICATION_EMAIL ||
-        !process.env.NOTIFICATION_EMAIL_PASSWORD
-      ) {
-        console.error(
-          "Notification email credentials are not configured."
-        );
-
-        return res.status(500).json({
-          success: false,
-          message:
-            "Notification email is not configured."
-        });
-      }
-
-      const transporter =
-        nodemailer.createTransport({
-          service: "gmail",
-
-          auth: {
-            user:
-              process.env.NOTIFICATION_EMAIL,
-
-            pass:
-              process.env.NOTIFICATION_EMAIL_PASSWORD
-          }
-        });
-
-      await transporter.sendMail({
-        from:
-          `"Caveman Cake" <${process.env.NOTIFICATION_EMAIL}>`,
-
-        to:
-          process.env.NOTIFICATION_EMAIL,
-
-        subject:
-          "🍰 Someone clicked GET THE FULL PACK",
-
-        text:
-          `Someone clicked a Caveman Cake download button.
-
-Product: ${product}
-
-This is only a button-click notification.
-No download or payment was recorded.`
-      });
-
       console.log(
-        "📧 Caveman Cake button-click notification sent."
+        "🍰 GET THE FULL PACK clicked:",
+        product
       );
 
       return res.json({
-        success: true
+        success: true,
+        message:
+          "Pack interest recorded."
       });
 
     } catch (error) {
-
       console.error(
         "Pack interest notification error:",
         error
@@ -578,7 +536,7 @@ No download or payment was recorded.`
       return res.status(500).json({
         success: false,
         message:
-          "Could not send notification."
+          "Could not process pack interest."
       });
     }
   }

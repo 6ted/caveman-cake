@@ -1,10 +1,30 @@
 
 import { API_URL } from "../api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Payment.css";
 
 export default function Payment() {
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+  const handleVisibilityChange = () => {
+    if (document.visibilityState === "visible") {
+      setLoading(false);
+    }
+  };
+
+  document.addEventListener(
+    "visibilitychange",
+    handleVisibilityChange
+  );
+
+  return () => {
+    document.removeEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    );
+  };
+}, []);
 
   const handleBack = () => {
     window.location.href = "/";

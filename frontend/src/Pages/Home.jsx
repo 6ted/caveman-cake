@@ -178,6 +178,64 @@ export default function Home() {
         </div>
       </section>
 
+
+
+     {/* PREVIEW SAMPLES */}
+      <section className="preview-section">
+        <div className="preview-header">
+          <p className="section-label">LISTEN BEFORE YOU GET IT</p>
+
+          <h2>
+            Taste a few ingredients first.
+          </h2>
+
+          <p>
+            Preview selected melody and drum loops from Caveman Cake
+            Slice 1 before purchasing the full pack.
+          </p>
+        </div>
+
+       
+        <p className="preview-note">
+          Preview audio is for listening purposes only. The full
+          sample files are available with the complete pack.
+        </p>
+      </section>
+      
+ <div className="preview-columns">
+
+          {/* MELODIES */}
+          <div className="preview-column">
+            <div className="preview-column-title">
+              <span>MELODY LOOPS</span>
+              <strong>5 PREVIEWS</strong>
+            </div>
+
+            <div className="preview-list">
+              {melodies.map((sample, index) =>
+                renderPreview(sample, index + 1)
+              )}
+            </div>
+          </div>
+
+          {/* DRUMS */}
+          <div className="preview-column">
+            <div className="preview-column-title">
+              <span>DRUM LOOPS</span>
+              <strong>5 PREVIEWS</strong>
+            </div>
+
+            <div className="preview-list">
+              {drums.map((sample, index) =>
+                renderPreview(sample, index + 1)
+              )}
+            </div>
+          </div>
+
+        </div>
+
+
+
       {/* WHAT'S INCLUDED */}
       <section className="included">
         <p className="section-label">WHAT'S INSIDE</p>
@@ -239,58 +297,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PREVIEW SAMPLES */}
-      <section className="preview-section">
-        <div className="preview-header">
-          <p className="section-label">LISTEN BEFORE YOU GET IT</p>
-
-          <h2>
-            Taste a few ingredients first.
-          </h2>
-
-          <p>
-            Preview selected melody and drum loops from Caveman Cake
-            Slice 1 before purchasing the full pack.
-          </p>
-        </div>
-
-        <div className="preview-columns">
-
-          {/* MELODIES */}
-          <div className="preview-column">
-            <div className="preview-column-title">
-              <span>MELODY LOOPS</span>
-              <strong>5 PREVIEWS</strong>
-            </div>
-
-            <div className="preview-list">
-              {melodies.map((sample, index) =>
-                renderPreview(sample, index + 1)
-              )}
-            </div>
-          </div>
-
-          {/* DRUMS */}
-          <div className="preview-column">
-            <div className="preview-column-title">
-              <span>DRUM LOOPS</span>
-              <strong>5 PREVIEWS</strong>
-            </div>
-
-            <div className="preview-list">
-              {drums.map((sample, index) =>
-                renderPreview(sample, index + 1)
-              )}
-            </div>
-          </div>
-
-        </div>
-
-        <p className="preview-note">
-          Preview audio is for listening purposes only. The full
-          sample files are available with the complete pack.
-        </p>
-      </section>
+ 
 
       {/* PACK DETAILS */}
       <section className="information-section">
