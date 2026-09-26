@@ -14,6 +14,7 @@ dotenv.config();
 const pool = require("./config/database");
 
 const app = express();
+app.set("trust proxy", 1);
 
 // ==================================================
 // CONFIGURATION
@@ -107,25 +108,41 @@ app.use(
 // ==================================================
 // CORS
 // ==================================================
-
 const allowedOrigins = [
   "http://localhost:5173",
   "https://cave.cavetunes.workers.dev",
-   "https://cavetunes.site"
+  "https://cavetunes.site"
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests without an Origin header
-      // such as server-to-server requests.
+
+      // Allow requests without an Origin header.
+      // This includes server-to-server requests.
       if (!origin) {
         return callback(null, true);
       }
 
+      // Allow the known production origins.
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
+
+      // Allow local Vite development from a phone
+      // connected to the same Wi-Fi network.
+      if (
+        /^http:\/\/192\.168\.\d+\.\d+:5173$/.test(origin) ||
+        /^http:\/\/10\.\d+\.\d+\.\d+:5173$/.test(origin) ||
+        /^http:\/\/172\.(1[6-9]|2\d|3[0-1])\.\d+\.\d+:5173$/.test(origin)
+      ) {
+        return callback(null, true);
+      }
+
+      console.warn(
+        "CORS blocked origin:",
+        origin
+      );
 
       return callback(
         new Error("Not allowed by CORS")
@@ -134,12 +151,15 @@ app.use(
 
     methods: [
       "GET",
-      "POST"
+      "POST",
+      "OPTIONS"
     ],
 
     allowedHeaders: [
       "Content-Type"
-    ]
+    ],
+
+    optionsSuccessStatus: 204
   })
 );
 
