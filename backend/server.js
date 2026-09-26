@@ -38,7 +38,7 @@ const PAYCHANGU_WEBHOOK_SECRET =
 
 const PRODUCT_PRICE_MWK =
   Number(
-    process.env.PRODUCT_PRICE_MWK || 1500
+    process.env.PRODUCT_PRICE_MWK || 100
   );
 
 const PRODUCT_PRICE_USD =
