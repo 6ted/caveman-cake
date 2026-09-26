@@ -1,6 +1,10 @@
+
 import { API_URL } from "../api";
 import { useEffect, useState } from "react";
 import "./Download.css";
+
+const MEDIAFIRE_URL =
+  "https://www.mediafire.com/file/gw9n1sjnw2ln070/Caveman-Cake-Slice-1.zip/file";
 
 export default function Download() {
   const [loading, setLoading] = useState(true);
@@ -13,10 +17,8 @@ export default function Download() {
   const token =
     params.get("token");
 
-
   useEffect(() => {
     const verifyDownload = async () => {
-
       if (!token) {
         setError(
           "No download authorization was provided."
@@ -27,35 +29,28 @@ export default function Download() {
         return;
       }
 
-
       try {
-
         const response =
           await fetch(
             `${API_URL}/api/download/check?token=${encodeURIComponent(token)}`
           );
 
-
         const data =
           await response.json();
-
 
         if (
           !response.ok ||
           !data.success
         ) {
-
           throw new Error(
             data.message ||
               "Download access denied."
           );
         }
 
-
         setAuthorized(true);
 
       } catch (error) {
-
         console.error(
           "Download verification error:",
           error
@@ -67,35 +62,26 @@ export default function Download() {
         );
 
       } finally {
-
         setLoading(false);
-
       }
     };
 
-
     verifyDownload();
-
   }, [token]);
 
-
   const handleDownload = () => {
-
-   window.location.href =
-  `${API_URL}/api/download?token=${encodeURIComponent(token)}`;
-
+    window.location.href = MEDIAFIRE_URL;
   };
-
 
   const handleHome = () => {
     window.location.href = "/";
   };
 
-
   if (loading) {
     return (
       <main className="download-page">
         <div className="download-card">
+
           <p className="download-label">
             CAVEMAN CAKE
           </p>
@@ -108,11 +94,11 @@ export default function Download() {
             Please wait while we verify your
             download access.
           </p>
+
         </div>
       </main>
     );
   }
-
 
   if (!authorized) {
     return (
@@ -143,7 +129,6 @@ export default function Download() {
       </main>
     );
   }
-
 
   return (
     <main className="download-page">
@@ -201,3 +186,4 @@ export default function Download() {
     </main>
   );
 }
+
