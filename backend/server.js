@@ -110,7 +110,8 @@ app.use(
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://cave.cavetunes.workers.dev"
+  "https://cave.cavetunes.workers.dev",
+   "https://cavetunes.site"
 ];
 
 app.use(
